@@ -18,7 +18,7 @@ if (Test-Path -Path $ruleSrc) {
     Copy-Item -Path $ruleSrc -Destination $targetFile -Force
 } else {
     Write-Host "[!] Local rule not found, downloading from GitHub..." -ForegroundColor Yellow
-    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/antigravity-community/antigravity-anti/main/rules/anti_persona.md" -OutFile $targetFile
+    Invoke-WebRequest -Uri "https://raw.githubusercontent.com/keay250/antigravity-anti-persona/main/rules/anti_persona.md" -OutFile $targetFile
 }
 
 Write-Host "[✔] Successfully installed to $targetFile" -ForegroundColor Green

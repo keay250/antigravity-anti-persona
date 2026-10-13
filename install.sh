@@ -30,7 +30,7 @@ TARGET_DIR="${HOME}/.gemini/config/rules"
 if [ ! -f "${RULE_SRC}" ]; then
     echo -e "${YELLOW}[!] 未找到本地 rules/anti_persona.md，尝试在线拉取...${NC}"
     mkdir -p "${TARGET_DIR}"
-    curl -fsSL https://raw.githubusercontent.com/antigravity-community/antigravity-anti/main/rules/anti_persona.md -o "${TARGET_DIR}/anti_persona.md"
+    curl -fsSL https://raw.githubusercontent.com/keay250/antigravity-anti-persona/main/rules/anti_persona.md -o "${TARGET_DIR}/anti_persona.md"
 else
     mkdir -p "${TARGET_DIR}"
     cp "${RULE_SRC}" "${TARGET_DIR}/anti_persona.md"

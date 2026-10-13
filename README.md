@@ -48,13 +48,13 @@ DeepSeek 有深入人心、软萌松弛的“大胖鱼”（小蓝鲸），而 *
 
 ### 🍎 macOS / 🐧 Linux:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/你的用户名/antigravity-anti/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/keay250/antigravity-anti-persona/main/install.sh | bash
 ```
 *(或者本地克隆后直接运行 `./install.sh`)*
 
 ### 🪟 Windows PowerShell:
 ```powershell
-irm https://raw.githubusercontent.com/你的用户名/antigravity-anti/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/keay250/antigravity-anti-persona/main/install.ps1 | iex
 ```
 
 > **提示**：安装脚本会自动将 `anti_persona.md` 同步至全局配置 `~/.gemini/config/rules/`。任何新开的 Antigravity 会话都会自动激活安缇人设！
