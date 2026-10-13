@@ -4,8 +4,6 @@ $ErrorActionPreference = "Stop"
 
 Write-Host ">>> Installing Anti Gravi (安缇) System Persona... <<<" -ForegroundColor Cyan
 
-$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$ruleSrc = Join-Path $scriptDir "rules\anti_persona.md"
 $targetDir = Join-Path $env:USERPROFILE ".gemini\config\rules"
 
 if (!(Test-Path -Path $targetDir)) {
@@ -14,10 +12,14 @@ if (!(Test-Path -Path $targetDir)) {
 
 $targetFile = Join-Path $targetDir "anti_persona.md"
 
-if (Test-Path -Path $ruleSrc) {
-    Copy-Item -Path $ruleSrc -Destination $targetFile -Force
+$scriptDir = if ($MyInvocation.MyCommand.Path) { Split-Path -Parent $MyInvocation.MyCommand.Path } else { "" }
+$localRule = if ($scriptDir) { Join-Path $scriptDir "rules\anti_persona.md" } else { "" }
+
+if ($localRule -and (Test-Path -Path $localRule)) {
+    Write-Host "[i] 检测到本地规则文件，正在同步..." -ForegroundColor Cyan
+    Copy-Item -Path $localRule -Destination $targetFile -Force
 } else {
-    Write-Host "[!] Local rule not found, downloading from GitHub..." -ForegroundColor Yellow
+    Write-Host "[i] 正在从 GitHub 同步最新安缇人设规则..." -ForegroundColor Cyan
     Invoke-WebRequest -Uri "https://raw.githubusercontent.com/keay250/antigravity-anti-persona/main/rules/anti_persona.md" -OutFile $targetFile
 }
 

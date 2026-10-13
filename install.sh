@@ -23,17 +23,17 @@ cat << 'EOF'
 EOF
 echo -e "${NC}"
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-RULE_SRC="${SCRIPT_DIR}/rules/anti_persona.md"
 TARGET_DIR="${HOME}/.gemini/config/rules"
+mkdir -p "${TARGET_DIR}"
 
-if [ ! -f "${RULE_SRC}" ]; then
-    echo -e "${YELLOW}[!] 未找到本地 rules/anti_persona.md，尝试在线拉取...${NC}"
-    mkdir -p "${TARGET_DIR}"
-    curl -fsSL https://raw.githubusercontent.com/keay250/antigravity-anti-persona/main/rules/anti_persona.md -o "${TARGET_DIR}/anti_persona.md"
+# 优雅判断：区分是本地仓库执行，还是通过 curl | bash 远程管道执行
+if [ -n "${BASH_SOURCE[0]}" ] && [ -f "$(dirname "${BASH_SOURCE[0]}")/rules/anti_persona.md" ]; then
+    LOCAL_RULE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/rules/anti_persona.md"
+    echo -e "${CYAN}[i] 检测到本地规则文件，正在同步...${NC}"
+    cp "${LOCAL_RULE}" "${TARGET_DIR}/anti_persona.md"
 else
-    mkdir -p "${TARGET_DIR}"
-    cp "${RULE_SRC}" "${TARGET_DIR}/anti_persona.md"
+    echo -e "${CYAN}[i] 正在从 GitHub 同步最新安缇人设规则...${NC}"
+    curl -fsSL https://raw.githubusercontent.com/keay250/antigravity-anti-persona/main/rules/anti_persona.md -o "${TARGET_DIR}/anti_persona.md"
 fi
 
 echo -e "${GREEN}[✔] 成功部署至全局规则目录: ${TARGET_DIR}/anti_persona.md${NC}"
